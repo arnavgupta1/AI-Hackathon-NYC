@@ -14,7 +14,6 @@ def gen(topic, prompt_list):
         print(f"Directory {topic} created")
     else:
         print(f"Directory {topic} already exists")
-        return
 
     num = 1
     for prompt_element in prompt_list:
@@ -37,3 +36,7 @@ def gen(topic, prompt_list):
 
         num+=1
 
+# for quick testing out of pipeline
+if __name__ == "__main__":
+    print("testing image generation")
+    gen("Rasputin", ['[Image 1 prompt: Fish swimming in clear ocean water, showcasing their diversity.]', '[Image 2 prompt: A variety of colorful fish showing their different shapes and sizes.]', '[Image 3 prompt: Evolution of fish from ancient fossils to present-day species.]', '[Image 4 prompt: Close-up of fish gills, fins, and scales, with an anglerfish displaying its luminescent feature.]', '[Image 5 prompt: Vibrant coral reef with a diverse array of fish coexisting, juxtaposed with damaged reef affected by overfishing and climate change.]', '[Image 6 prompt: A diverse group of fish swimming together, symbolizing unity and coexistence among species.]'])
