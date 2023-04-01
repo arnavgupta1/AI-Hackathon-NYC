@@ -57,7 +57,7 @@ CHARACTERS = {
             }
 }
 
-DEFAULT_CHARACTER = "icespice"
+DEFAULT_CHARACTER = "Ice Spice"
 DEFAULT_TOPIC = "Rasputin"
 DEFAULT_SOURCE = "https://en.wikipedia.org/wiki/Grigori_Rasputin"
 
