@@ -85,14 +85,16 @@ if __name__ == "__main__":
 
     # generate the transcript and timestamped image descriptions
     print("generating script...")
-    [transcript, image_prompts] = gen_script.gen(CHARACTERS[character].prompt, topic, source) #outputted as lists
+    [transcript, image_prompts] = gen_script.gen(CHARACTERS[character]["prompt"], topic, source) #outputted as lists
 
     # generate audio for the transcript
     print("generating audio...")
     audio_list = []
+    n = 0
     for transcript_output in transcript:
         #Stores all audio files in a list
-        audio_list.append(gen_audio.gen(transcript_output, CHARACTERS[character].voiceid, 'output.mp3'))  
+        audio_list.append(gen_audio.gen(transcript_output, CHARACTERS[character]["voiceid"], f'output{n}.mp3'))  
+        n+=1
 
     # generate images for the video
     print("generating images...")
