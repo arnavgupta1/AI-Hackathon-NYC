@@ -22,14 +22,18 @@ def gen(source_folder, profile_image):
     print(image_files)
 
     video_clips = []
+    num=1
     for img, audio in zip(image_files, audio_files):
         audio_clip = AudioFileClip(audio)
         duration = audio_clip.duration
+        if num == 1: duration/=3
+        if num == len(image_files): duration*=3
         im = Image.open(img)
         im_resized = im.resize((im.width, 1024), Image.ANTIALIAS)
         np_im_resized = np.array(im_resized)
         video_clip = ImageClip(np_im_resized).set_duration(duration)
         video_clips.append(video_clip)
+        num+=1
 
     video = concatenate_videoclips(video_clips, method="compose")
     audio = concatenate_audioclips([AudioFileClip(audio) for audio in audio_files])
