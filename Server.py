@@ -152,6 +152,23 @@ class SimpleWebsite:
     </div>
     <div id="loading-screen">
         <h2>Loading...</h2>
+       <div class="loader"></div>
+     <style>
+          .loader {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+          }
+
+          @keyframes spin {
+            0% {transform: rotate(0deg);}
+            100% {transform: rotate(360deg);}
+          }
+        </style>
     </div>
     <video id="video-player" controls></video>
 </body>
@@ -164,10 +181,10 @@ class SimpleWebsite:
             cherrypy.session['topic'] = topic
             cherrypy.session['name'] = name
             main.run(topic, name)
-            while not os.path.exists(f"{topic}.mp4"):
+            while not os.path.exists(f"./{topic}/video.mp4"):
                 print("File not found. Waiting...")
                 time.sleep(1)
-            return f"{topic}.mp4"
+            return f"./{topic}/video.mp4"
         else:
             return "Error: Missing topic or name"
 
