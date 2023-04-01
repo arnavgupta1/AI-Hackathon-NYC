@@ -1,6 +1,7 @@
 import gen_script
 import gen_audio
 import gen_images
+import gen_video
 import topic_to_wikiurl
 
 CHARACTERS = {
@@ -97,5 +98,4 @@ if __name__ == "__main__":
     gen_images.gen(topic, image_prompts)
 
     # generate video by combining images, video, and audio
-    # TODO
 

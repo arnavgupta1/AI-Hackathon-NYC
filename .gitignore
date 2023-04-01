@@ -2,6 +2,7 @@
 *.jpg
 *.mp3
 *.mp4
+*.mov
 .env
 *.swp
 __pycache__

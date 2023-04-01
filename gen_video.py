@@ -1,6 +1,7 @@
 import os
+import numpy as np
 from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips, concatenate_audioclips
-
+from PIL import Image
 
 def gen(source_folder):
     print(f'using source ./{source_folder}')
@@ -16,21 +17,22 @@ def gen(source_folder):
     audio_files.sort(key=lambda x: int(x.split("audio")[-1].split(".mp3")[0]))
     image_files.sort(key=lambda x: int(x.split("image")[-1].split(".jpg")[0]))
 
-    image_clips = [ImageClip(img) for img in image_files]
-    audio_clips = [AudioFileClip(audio) for audio in audio_files]
+    video_clips = []
+    for img, audio in zip(image_files, audio_files):
+        audio_clip = AudioFileClip(audio)
+        duration = audio_clip.duration
+        im = Image.open(img)
+        im_resized = im.resize((im.width, 1024), Image.ANTIALIAS)
+        np_im_resized = np.array(im_resized)
+        video_clip = ImageClip(np_im_resized).set_duration(duration)
+        video_clips.append(video_clip)
 
-    for i in range(len(image_clips)):
-        image_clips[i] = image_clips[i].set_duration(audio_clips[i].duration)
-        image_clips[i].fps = 24  # Set the fps for each ImageClip
-
-    video = concatenate_videoclips(image_clips)
-    audio = concatenate_audioclips(audio_clips)
+    video = concatenate_videoclips(video_clips, method="compose")
+    audio = concatenate_audioclips([AudioFileClip(audio) for audio in audio_files])
 
     video = video.set_audio(audio)
-    video.write_videofile(f"{source_folder}/video.mp4")
+    video.write_videofile(f"{source_folder}/video.mov", fps=24, codec="libx264", audio_codec="aac")
 
-
-# for quick testing out of pipeline
 if __name__ == "__main__":
     print("testing video generation")
-    gen("Rasputin")
+    gen("stonehenge")
