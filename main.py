@@ -7,25 +7,19 @@ import gen_images
 
 # generate the transcript and timestamped image descriptions
 print("generate script...")
-[transcript, timestamps] = gen_script.gen()
-print (transcript, timestamps)
+[transcript, image_prompts] = gen_script.gen() #outputted as lists
+# print (transcript, timestamps)
 
 # generate audio for the transcript
 print("generate audio...")
-gen_audio.gen(transcript, 'output.mp3')
+audio_list = []
+for transcript_output in transcript:
+    gen_audio.gen(transcript_output, 'output.mp3')
 
 # 
 topic="rasputin"
 print("generate images...")
-timestamp_list = timestamps.split('\n')
-prompt_list = []
 
-for s in timestamp_list:
-    for i, c in enumerate(s):
-        if c.isalpha():
-            new_s = s[i:]
-            break
-    prompt_list.append(new_s)
 
 """
 prompt_list = [
@@ -37,5 +31,5 @@ prompt_list = [
 ]
 """
 
-gen_images.gen(topic, prompt_list)
+gen_images.gen(topic, image_prompts)
 

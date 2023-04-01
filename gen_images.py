@@ -10,6 +10,9 @@ def gen(topic, prompt_list):
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
     num = 1
+
+    # TODO : Check for directory before creating it
+    os.mkdir(topic)
     for prompt_element in prompt_list:
         # Generate the image using the prompt
         response = openai.Image.create(prompt=prompt_element)
@@ -20,8 +23,9 @@ def gen(topic, prompt_list):
         # Download the image
         response = requests.get(url)
 
-        os.mkdir(topic)
         # Save the image to a file
+
+        #TODO : Check for image with same name before creating it
         with open('{}/generated_image_{}.jpg'.format(topic, num), 'wb') as f:
             f.write(response.content)
 
