@@ -69,6 +69,7 @@ if __name__ == "__main__":
     if wiki_page:
         topic = user_topic
         source = wiki_page
+        print(f'Found topic source: {wiki_page}')
     else:
         topic = DEFAULT_TOPIC
         source = DEFAULT_SOURCE
@@ -80,6 +81,8 @@ if __name__ == "__main__":
     if character not in list(CHARACTERS.keys()):
         print(character + " is not available, defaulting to " + DEFAULT_CHARACTER)
         character = DEFAULT_CHARACTER
+    else:
+        print(f'Using character "{character}"')
 
     # generate the transcript and timestamped image descriptions
     print("generating script...")
