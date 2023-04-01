@@ -61,10 +61,7 @@ DEFAULT_CHARACTER = "icespice"
 DEFAULT_TOPIC = "Rasputin"
 DEFAULT_SOURCE = "https://en.wikipedia.org/wiki/Grigori_Rasputin"
 
-if __name__ == "__main__":
-    # get user input for topic
-    user_topic = input("Enter a topic: ")
-
+def run(user_topic, character):
     # get source for the user-provided topic
     wiki_page = topic_to_wikiurl.get_wikipedia_page(user_topic)
     if wiki_page:
@@ -76,9 +73,6 @@ if __name__ == "__main__":
         source = DEFAULT_SOURCE
         print("No matching Wikipedia page found, defaulting to " + topic)
 
-    # get user input for character
-    print("These are the available voices: " + ', '.join(list(CHARACTERS.keys())))
-    character = input("Enter a character: ")
     if character not in list(CHARACTERS.keys()):
         print(character + " is not available, defaulting to " + DEFAULT_CHARACTER)
         character = DEFAULT_CHARACTER
@@ -100,3 +94,17 @@ if __name__ == "__main__":
     # generate video by combining images, video, and audio
     print("generating video...")
     gen_video.gen(topic, f'character_images/{CHARACTERS[character]["image"]}')
+
+if __name__ == "__main__":
+    # get user input for topic
+    user_topic = input("Enter a topic: ")
+
+    # get user input for character
+    print("These are the available voices: " + ', '.join(list(CHARACTERS.keys())))
+    character = input("Enter a character: ")
+
+    # run pipeline
+    run(user_topic, character)
+
+
+
