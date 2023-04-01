@@ -3,7 +3,7 @@ import numpy as np
 from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips, concatenate_audioclips
 from PIL import Image
 
-def gen(source_folder):
+def gen(source_folder, profile_image):
     print(f'using source ./{source_folder}')
     audio_files = []
     image_files = []
@@ -16,6 +16,9 @@ def gen(source_folder):
 
     audio_files.sort(key=lambda x: int(x.split("audio")[-1].split(".mp3")[0]))
     image_files.sort(key=lambda x: int(x.split("image")[-1].split(".jpg")[0]))
+
+    # make profile image the first image in the slideshow
+    image_files[:0] = [profile_image]
 
     video_clips = []
     for img, audio in zip(image_files, audio_files):
@@ -35,4 +38,4 @@ def gen(source_folder):
 
 if __name__ == "__main__":
     print("testing video generation")
-    gen("stonehenge")
+    gen("Emu War", "character_images/BenShapiro.jpeg")
