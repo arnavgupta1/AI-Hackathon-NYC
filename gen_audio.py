@@ -2,7 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 
-def gen(transcript, output_file):
+def gen(transcript, voiceid, output_file):
     load_dotenv()
 
     # Replace these values with your own
@@ -10,7 +10,7 @@ def gen(transcript, output_file):
     voice_id = os.getenv("ELEVENLABS_VOICE_ID")
 
     # API endpoint and headers
-    url = f'https://api.elevenlabs.io/v1/text-to-speech/{voice_id}'
+    url = f'https://api.elevenlabs.io/v1/text-to-speech/{' + voiceid + '}'
     headers = {
         'xi-api-key': api_key,  # Update the header to use xi-api-key
         'Content-Type': 'application/json'
