@@ -16,6 +16,10 @@ def gen(character, topic, source):
 
 Text: Description of the material.
 Image: Description of an image related to the material.
+Text: Description of the material.
+Image: Description of an image related to the material.
+Text: Description of the material.
+Image: Description of an image related to the material.
 
 Provide specific and high-quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Follow the format exactly. Do not number the sections."""
 
