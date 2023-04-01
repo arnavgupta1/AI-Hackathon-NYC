@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 import json
 import openai
@@ -11,7 +12,12 @@ def gen(character, topic, source):
     openai.organization = "org-9gFweLPBiQroCILySsu6cZBQ"
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    SYSTEM_CHARACTER_BASE = "Your job is to act like a college professor, accurately and concisely summarizing source information. You will be given 1000 characters towards generating a transcript for the information. The transcript should not include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have ten parts in broke up in the following format: \nDescription of the material.\nImage: Description of an image related to the material.\n\nProvide specific and high quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Do not include any other labels. Do not number the images."
+    SYSTEM_CHARACTER_BASE = """Your job is to act like a college professor, accurately and concisely summarizing source information. Generate a transcript approximately 600 words long. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have at least eight parts broken up in the following format: 
+
+Text: Description of the material.
+Image: Description of an image related to the material.
+
+Provide specific and high-quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Follow the format exactly. Do not number the sections."""
 
     user_input = "Your topic is: " + topic + "\nYour source material is: " + source
 
@@ -29,16 +35,28 @@ def gen(character, topic, source):
         {"role": "user", "content": user_input}
       ]
     )
-    c = completion.choices[0].message.content.split('Image:')
-    print(c)
+    c = completion.choices[0].message.content
+    # try to remove any numberings but leave dates alone
+    c = re.sub(r'(?<!\d)\d{1,2}\.(?!\d)', '', c)
+    # seperate transcript from image prompts
 
-    transcript = c[::2]
-    image_prompts = c[1::2]
+    text = []
+    images = []
 
-    print(transcript)
-    print(image_prompts)
+    components = c.split('\n')
 
-    return [transcript, image_prompts]
+    print(components)
+
+    for component in components:
+        if component.startswith('Text:'):
+            text.append(component[len('Text:'):].strip())
+        elif component.startswith('Image:'):
+            images.append(component[len('Image:'):].strip())
+
+    print(text)
+    print(images)
+
+    return [text, images]
 
 # for quick testing out of pipeline
 if __name__ == "__main__":
