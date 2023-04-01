@@ -4,7 +4,7 @@ def get_wikipedia_page(topic):
     wiki = wikipediaapi.Wikipedia('en')
     page = wiki.page(topic)
     if page.exists():
-        return page.url
+        return page.fullurl
     else:
         return None
 
