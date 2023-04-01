@@ -58,9 +58,6 @@ CHARACTERS = {
             }
 }
 
-# BarackObama.jpeg  DavidGoggins.jpeg IceSpice.jpeg     JoeRogan.jpeg     PopSmoke.jpeg
-BenShapiro.jpeg   DonaldTrump.jpeg  JoeBiden.jpeg     LebronJames.jpeg  QueenLizzy.jpeg
-
 DEFAULT_CHARACTER = "icespice"
 DEFAULT_TOPIC = "Rasputin"
 DEFAULT_SOURCE = "https://en.wikipedia.org/wiki/Grigori_Rasputin"
