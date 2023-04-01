@@ -28,5 +28,5 @@ prompt_list = [
 ]
 """
 
-gen_images.gen(prompt_list)
+gen_images.gen(topic, prompt_list)
 
