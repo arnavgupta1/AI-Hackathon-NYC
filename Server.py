@@ -1,5 +1,8 @@
-import cherrypy
+import os
 import time
+
+import cherrypy
+import main
 
 
 class SimpleWebsite:
@@ -160,8 +163,11 @@ class SimpleWebsite:
         if topic and name:
             cherrypy.session['topic'] = topic
             cherrypy.session['name'] = name
-            time.sleep(3)  # Artificial delay
-            return "/path/to/your/video.mp4"  # Replace with the actual video URL
+            main.run(topic, name)
+            while not os.path.exists(f"{topic}.mp4"):
+                print("File not found. Waiting...")
+                time.sleep(1)
+            return f"{topic}.mp4"
         else:
             return "Error: Missing topic or name"
 
