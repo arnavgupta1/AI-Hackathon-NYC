@@ -2,15 +2,15 @@ import requests
 import os
 from dotenv import load_dotenv
 
-def gen(transcript, voiceid, output_file):
+def gen(transcript, voice_id, output_file):
     load_dotenv()
 
     # Replace these values with your own
     api_key = os.getenv("ELEVENLABS_API_KEY")
-    voice_id = os.getenv("ELEVENLABS_VOICE_ID")
 
     # API endpoint and headers
-    url = 'https://api.elevenlabs.io/v1/text-to-speech/{' + voiceid + '}'
+    url = f'https://api.elevenlabs.io/v1/text-to-speech/{voice_id}'
+    print(url)
     headers = {
         'xi-api-key': api_key,  # Update the header to use xi-api-key
         'Content-Type': 'application/json'
