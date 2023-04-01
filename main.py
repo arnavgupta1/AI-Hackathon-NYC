@@ -16,5 +16,5 @@ prompt_list = [
 
 # gen_audio.gen('output.mp3')
 
-gen_images.gen(prompt_list)
+gen_images.gen(topic, prompt_list)
 
