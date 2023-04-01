@@ -98,4 +98,5 @@ if __name__ == "__main__":
     gen_images.gen(topic, image_prompts)
 
     # generate video by combining images, video, and audio
-
+    print("generating video...")
+    gen_video.gen(topic, f'character_images/{CHARACTERS[character]["image"]}')
