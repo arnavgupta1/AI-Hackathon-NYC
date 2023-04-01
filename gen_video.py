@@ -1,7 +1,21 @@
 import os
 import numpy as np
-from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips, concatenate_audioclips
+from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips, concatenate_audioclips,VideoFileClip
 from PIL import Image
+
+def convert(source_folder):
+    print("converting from .mov to .mp4")
+    input_file = f"{source_folder}/video.mov"
+    output_file = f"{source_folder}/video.mp4"
+
+    # Load the input video file
+    video = VideoFileClip(input_file)
+
+    # Write the video file to an .mp4 format
+    video.write_videofile(output_file, codec="libx264")
+
+    # Close the video file
+    video.close()
 
 def gen(source_folder, profile_image):
     print(f'using source ./{source_folder}')
@@ -40,6 +54,9 @@ def gen(source_folder, profile_image):
 
     video = video.set_audio(audio)
     video.write_videofile(f"{source_folder}/video.mov", fps=24, codec="libx264", audio_codec="aac")
+
+    # convert to mp4 for chrome
+    convert(source_folder)
 
 if __name__ == "__main__":
     print("testing video generation")
