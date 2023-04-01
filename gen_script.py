@@ -9,7 +9,7 @@ def gen(character, topic, source):
     openai.organization = "org-9gFweLPBiQroCILySsu6cZBQ"
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    SYSTEM_CHARACTER_BASE = "Your job is to act like a college professor, accurately and concisely summarizing source information. You will be given 1000 characters towards generating a transcript for the information. The transcript should no include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. After every paragraph of text, provide, you will provide a transcript of specific and high quality image prompts for Dalle 2. All images should have a similar style and should not include any text."
+    SYSTEM_CHARACTER_BASE = "Your job is to act like a college professor, accurately and concisely summarizing source information. You will be given 1000 characters towards generating a transcript for the information. The transcript should no include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. After every paragraph of text, provide, you will provide a transcript of specific and high quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Generate at least 10 image descriptions."
 
     user_input = "Your topic is: " + topic + "\nYour source material is: " + source
 
