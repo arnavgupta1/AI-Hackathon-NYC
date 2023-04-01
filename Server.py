@@ -1,4 +1,5 @@
 import cherrypy
+import time
 
 
 class SimpleWebsite:
@@ -78,12 +79,56 @@ class SimpleWebsite:
                 border-radius: 4px;
                 width: 100%;
             }
+            #loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: center;
+            padding-top: 250px;
+            }
+
+            #video-player {
+                display: none;
+                width: 100%;
+                height: auto;
+                max-width: 1000px;
+                margin-top: 0px;
+            }
+            
         </style>
+        <script>
+    function showLoadingScreen() {
+        document.querySelector(".container").style.display = "none";
+        document.getElementById("loading-screen").style.display = "block";
+    }
+
+    function displayVideo(videoUrl) {
+        document.getElementById("loading-screen").style.display = "none";
+        var videoPlayer = document.getElementById("video-player");
+        videoPlayer.src = videoUrl;
+        videoPlayer.style.display = "block";
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            showLoadingScreen();
+            fetch("/submit?topic=" + encodeURIComponent(document.getElementById("topic").value) + "&name=" + encodeURIComponent(document.getElementById("name").value))
+                .then(response => response.text())
+                .then(displayVideo);
+        });
+    });
+</script>
     </head>
     <body>
     <h1>Enter a Topic, Get a Video Explanation</h1>
     <div class="container">
-        <form action="submit" method="post">
+        <form>
             <label for="topic">Topic:</label>
             <input type="text" id="topic" name="topic" required><br>
             <label for="name">Name:</label>
@@ -102,6 +147,10 @@ class SimpleWebsite:
             <input type="submit" value="Submit">
         </form>
     </div>
+    <div id="loading-screen">
+        <h2>Loading...</h2>
+    </div>
+    <video id="video-player" controls></video>
 </body>
 </html>
     '''
@@ -111,7 +160,8 @@ class SimpleWebsite:
         if topic and name:
             cherrypy.session['topic'] = topic
             cherrypy.session['name'] = name
-            return f"Received topic: {topic}, selected name: {name}"
+            time.sleep(3)  # Artificial delay
+            return "/path/to/your/video.mp4"  # Replace with the actual video URL
         else:
             return "Error: Missing topic or name"
 
