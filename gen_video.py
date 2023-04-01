@@ -19,6 +19,7 @@ def gen(source_folder, profile_image):
 
     # make profile image the first image in the slideshow
     image_files[:0] = [profile_image]
+    print(image_files)
 
     video_clips = []
     for img, audio in zip(image_files, audio_files):
@@ -38,4 +39,4 @@ def gen(source_folder, profile_image):
 
 if __name__ == "__main__":
     print("testing video generation")
-    gen("Emu War", "character_images/BenShapiro.jpeg")
+    gen("California Gold Rush", "character_images/DonaldTrump.jpeg")
