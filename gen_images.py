@@ -18,7 +18,7 @@ def gen(topic, prompt_list):
     num = 1
     for prompt_element in prompt_list:
         # Generate the image using the prompt
-        response = openai.Image.create(prompt=prompt_element)
+        response = openai.Image.create(prompt=prompt_element, size="512x512")
         print(response)
         # Get the URL of the generated image
         url = response.data[0].url
