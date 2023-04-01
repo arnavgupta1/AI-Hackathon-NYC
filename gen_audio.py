@@ -39,7 +39,7 @@ def gen(topic, voice_id, transcript):
         # Check the response
         if response.status_code == 200:
             # Save the audio file
-            output_path = '{}/audio{}.jpg'.format(topic, n)
+            output_path = '{}/audio{}.mp3'.format(topic, n)
             if not os.path.exists(output_path):
                 with open(output_path, 'wb') as f:
                     f.write(response.content)
