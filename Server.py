@@ -113,7 +113,9 @@ class SimpleWebsite:
     function displayVideo(videoUrl) {
         document.getElementById("loading-screen").style.display = "none";
         var videoPlayer = document.getElementById("video-player");
-        videoPlayer.src = videoUrl;
+        fetch(videoUrl).then(response => response.blob()).then(blob => {
+            videoPlayer.srcObject = new Blob([blob], { type: 'video/mp4' });
+        });
         videoPlayer.style.display = "block";
     }
 
@@ -176,6 +178,11 @@ class SimpleWebsite:
     '''
 
     @cherrypy.expose
+    def static(self, filepath):
+        return cherrypy.lib.static.serve_file(os.path.abspath(filepath))
+
+
+    @cherrypy.expose
     def submit(self, topic=None, name=None):
         if topic and name:
             cherrypy.session['topic'] = topic
@@ -184,7 +191,7 @@ class SimpleWebsite:
             while not os.path.exists(f"./{topic}/video.mp4"):
                 print("File not found. Waiting...")
                 time.sleep(1)
-            return f"./{topic}/video.mp4"
+            return f"/static/{topic}/video.mp4"
         else:
             return "Error: Missing topic or name"
 

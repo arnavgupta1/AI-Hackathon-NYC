@@ -27,7 +27,7 @@ Provide specific and high-quality image prompts for Dalle 2. All images should h
 
     # gpt-3.5-turbo	gpt-4
 
-    MODEL='gpt-4'
+    MODEL='gpt-3.5-turbo'
 
     # Get the full transcript
     completion = openai.ChatCompletion.create(

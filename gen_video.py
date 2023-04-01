@@ -60,4 +60,4 @@ def gen(source_folder, profile_image):
 
 if __name__ == "__main__":
     print("testing video generation")
-    gen("California Gold Rush", "character_images/DonaldTrump.jpeg")
+    gen("Rasputin", "character_images/IceSpice.jpeg")
