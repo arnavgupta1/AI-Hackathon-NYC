@@ -15,8 +15,17 @@ print("generate audio...")
 gen_audio.gen(transcript, 'output.mp3')
 
 # 
+topic="rasputin"
 print("generate images...")
-prompt_list = timestamps.split(']')
+timestamp_list = timestamps.split('\n')
+prompt_list = []
+
+for s in timestamp_list:
+    for i, c in enumerate(s):
+        if c.isalpha():
+            new_s = s[i:]
+            break
+    prompt_list.append(new_s)
 
 """
 prompt_list = [
