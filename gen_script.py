@@ -10,7 +10,7 @@ def gen():
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
     character = {
-            "base": "Your job is to act like a college professor, accurately and concisely summarizing source information.\n You will be given 1000 characters towards generating a transcript for the information. The transcript should no include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images.\n Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories.\n After the transcript, you will provide a transcript of specific and high quality image prompts for Dalle 2. All images should have a similar style and should include any text.",
+            "base": "Your job is to act like a college professor, accurately and concisely summarizing source information.\n You will be given 1000 characters towards generating a transcript for the information. The transcript should no include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images.\n Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories.\n After the transcript, you will provide a transcript of specific and high quality image prompts for Dalle 2. All images should have a similar style and should include any text.\nLabel the prompts like this ::Image Prompts:: \n [00:00-00:20] description \n [00:21-00:52] description.",
         "icespice": "You will be presenting the information like the rapper Ice Spice. She likes to call people munches."
     }
     user_input = "Your topic is: Rasputin. Your source material is: (https://en.wikipedia.org/wiki/Grigori_Rasputin)"
@@ -32,10 +32,10 @@ def gen():
 
     content = completion.choices[0].message.content
 
-    # print("O", content)
-    # print("P", content.split('::timestamps::'))
+    print("O", content)
+    print("P", content.split('::Image Prompts::'))
 
-    [transcript, timestamps] = content.split('::timestamps::')
+    [transcript, timestamps] = content.split('::Image Prompts::')
 
     # print("A", transcript)
     # print("B", timestamps)

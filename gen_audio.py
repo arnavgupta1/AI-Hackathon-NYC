@@ -2,16 +2,12 @@ import requests
 import os
 from dotenv import load_dotenv
 
-def gen(output_file):
+def gen(transcript, output_file):
     load_dotenv()
 
     # Replace these values with your own
     api_key = os.getenv("ELEVENLABS_API_KEY")
     voice_id = os.getenv("ELEVENLABS_VOICE_ID")
-
-    #api_key = '6778716bd3b83651ee01f53c88a265e1'
-    #voice_id = 'dwdRJnffs5XslqI4IhLx'
-    text = 'Hello everyone!'
 
     # API endpoint and headers
     url = f'https://api.elevenlabs.io/v1/text-to-speech/{voice_id}'
@@ -22,7 +18,7 @@ def gen(output_file):
 
     # Request payload
     payload = {
-        'text': text,
+        'text': transcript,
         'voice_settings': {
             'stability': 0,
             'similarity_boost': 0
