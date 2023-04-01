@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 import json
 import openai
+import textwrap
+
 
 def gen(character, topic, source):
     load_dotenv()
@@ -9,7 +11,7 @@ def gen(character, topic, source):
     openai.organization = "org-9gFweLPBiQroCILySsu6cZBQ"
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    SYSTEM_CHARACTER_BASE = "Your job is to act like a college professor, accurately and concisely summarizing source information. You will be given 1000 characters towards generating a transcript for the information. The transcript should no include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. After every paragraph of text, provide, you will provide a transcript of specific and high quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Generate at least 10 image descriptions."
+    SYSTEM_CHARACTER_BASE = "Your job is to act like a college professor, accurately and concisely summarizing source information. You will be given 1000 characters towards generating a transcript for the information. The transcript should not include anything besides the exact words she would want spoken. This includes any expressions, exposition, or images. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have ten parts in broke up in the following format: \nDescription of the material.\nImage: Description of an image related to the material.\n\nProvide specific and high quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Do not include any other labels. Do not number the images."
 
     user_input = "Your topic is: " + topic + "\nYour source material is: " + source
 
@@ -17,6 +19,7 @@ def gen(character, topic, source):
 
     MODEL='gpt-4'
 
+    # Get the full transcript
     completion = openai.ChatCompletion.create(
       model=MODEL,
       max_tokens=1200,
@@ -26,19 +29,11 @@ def gen(character, topic, source):
         {"role": "user", "content": user_input}
       ]
     )
+    c = completion.choices[0].message.content.split('Image:')
+    print(c)
 
-
-    content = completion.choices[0].message.content
-    split_content = content.split('\n')
-    filtered_list = [string for string in split_content if string != '']
-    transcript = []
-    image_prompts = []
-
-    for i in range(len(filtered_list)):
-      if(i % 2 == 0):
-        transcript.append(filtered_list[i])
-      else:
-        image_prompts.append(filtered_list[i])
+    transcript = c[::2]
+    image_prompts = c[1::2]
 
     print(transcript)
     print(image_prompts)
