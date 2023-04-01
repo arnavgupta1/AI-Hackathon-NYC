@@ -3,8 +3,6 @@ import gen_audio
 import gen_images
 import topic_to_wikiurl
 
-CHARACTER_IMAGE_FOLDER = "character_images"
-
 CHARACTERS = {
         "icespice": {
             "image": "IceSpice.jpeg",
@@ -89,12 +87,7 @@ if __name__ == "__main__":
 
     # generate audio for the transcript
     print("generating audio...")
-    audio_list = []
-    n = 0
-    for transcript_output in transcript:
-        #Stores all audio files in a list
-        audio_list.append(gen_audio.gen(transcript_output, CHARACTERS[character]["voiceid"], f'output{n}.mp3'))  
-        n+=1
+    gen_audio.gen(topic, CHARACTERS[character]["voiceid"], transcript)
 
     # generate images for the video
     print("generating images...")

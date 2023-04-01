@@ -45,4 +45,7 @@ def gen(character, topic, source):
 
     return [transcript, image_prompts]
 
-
+# for quick testing out of pipeline
+if __name__ == "__main__":
+    print("testing script generation")
+    gen("You will be presenting the information like the rapper Ice Spice. She likes to call people munches.", "Rasputin", "https://en.wikipedia.org/wiki/Grigori_Rasputin")
