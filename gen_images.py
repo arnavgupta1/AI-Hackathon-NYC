@@ -11,8 +11,14 @@ def gen(topic, prompt_list):
 
     num = 1
 
-    # TODO : Check for directory before creating it
-    os.mkdir(topic)
+
+    if not os.path.exists(topic):
+        os.mkdir(topic)
+        print(f"Directory {topic} created")
+    else:
+        print(f"Directory {topic} already exists")
+        return
+
     for prompt_element in prompt_list:
         # Generate the image using the prompt
         response = openai.Image.create(prompt=prompt_element)
@@ -24,10 +30,12 @@ def gen(topic, prompt_list):
         response = requests.get(url)
 
         # Save the image to a file
-
-        #TODO : Check for image with same name before creating it
-        with open('{}/generated_image_{}.jpg'.format(topic, num), 'wb') as f:
-            f.write(response.content)
+        img_path = '{}/generated_image_{}.jpg'.format(topic, num)
+        if not os.path.exists(img_path):
+            with open(img_path, 'wb') as f:
+                f.write(response.content)
+        else:
+            print(f'{img_path} already exists \n Skipping ......')
 
         num+=1
 
