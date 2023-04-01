@@ -12,7 +12,7 @@ def gen(character, topic, source):
     openai.organization = "org-9gFweLPBiQroCILySsu6cZBQ"
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    SYSTEM_CHARACTER_BASE = """Your job is to act like a college professor, accurately and concisely summarizing source information. Generate a transcript approximately 600 words long. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have at least eight parts broken up in the following format: 
+    SYSTEM_CHARACTER_BASE = """Your job is to act like a college professor, accurately and concisely summarizing source information. Generate a transcript approximately 1000 words long. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have at least eight parts broken up in the following format: 
 
 Text: Description of the material.
 Image: Description of an image related to the material.
