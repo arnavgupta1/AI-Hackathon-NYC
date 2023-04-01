@@ -14,13 +14,12 @@ print("generate script...")
 print("generate audio...")
 audio_list = []
 for transcript_output in transcript:
-    gen_audio.gen(transcript_output, 'output.mp3')
+    #Stores all audio files in a list
+    audio_list.append(gen_audio.gen(transcript_output, 'output.mp3'))  
 
-# 
+
 topic="rasputin"
 print("generate images...")
-
-
 """
 prompt_list = [
     'A hand-drawn animated portrait of Grigori Rasputin with his iconic beard and intense eyes.',

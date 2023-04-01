@@ -34,6 +34,8 @@ def gen(transcript, output_file):
         with open(output_file, 'wb') as audio_file:
             audio_file.write(response.content)
         print('Audio file saved as ' + output_file)
+        return reponse.content
     else:
         print(f'Error: {response.status_code} - {response.content.decode("utf-8")}')
+        return None
 
