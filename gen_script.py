@@ -12,7 +12,7 @@ def gen(character, topic, source):
     openai.organization = "org-9gFweLPBiQroCILySsu6cZBQ"
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    SYSTEM_CHARACTER_BASE = """Your job is to act like a college professor, accurately and concisely summarizing source information. Generate a transcript approximately 1000 words long. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have at least eight parts broken up in the following format: 
+    SYSTEM_CHARACTER_BASE = """Your job is to act like a skilled story teller who, accurately and concisely summarizes source information, while being entertaining. Generate a transcript approximately 1000 words long. Mention any shocking or usual content. Avoid lengthy exposition and provide interesting stories. The transcript should have at least eight parts broken up in the following format: 
 
 Text: Description of the material.
 Image: Description of an image related to the material.
@@ -21,7 +21,7 @@ Image: Description of an image related to the material.
 Text: Description of the material.
 Image: Description of an image related to the material.
 
-Provide specific and high-quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Follow the format exactly. Do not number the sections."""
+Provide specific and high-quality image prompts for Dalle 2. All images should have a similar style and should not include any text. Follow the format exactly. Do not number the sections. Avoid any gore, sexual content, or other potentially offensive image contents."""
 
     user_input = "Your topic is: " + topic + "\nYour source material is: " + source
 
